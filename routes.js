@@ -112,4 +112,15 @@ router.post("/:id/add-reservation/", async function(req, res, next) {
   }
 });
 
+/** Handle search for customer name */
+
+router.post("/search/", async function(req, res, next) {
+  try {
+    const customers = await Customer.search(req.body.search);
+    return res.render("customer_search.html", { customers });
+  } catch (err) {
+    return next(err);
+  }
+})
+
 module.exports = router;
