@@ -14,6 +14,16 @@ class Customer {
     this.notes = notes;
   }
 
+  /** Falsy values in notes -> empty string */
+
+  get notes() {
+    return this._notes;
+  }
+
+  set notes(val) {
+    this._notes = (val) ? val : "";
+  }
+
   /** find all customers. */
 
   static async all() {
@@ -123,7 +133,7 @@ class Customer {
   /** return full name of customer */
 
   fullName() {
-    return `${this.firstName} ${this.lastName}`
+    return `${this.firstName} ${this.lastName}`;
   }
 }
 

@@ -16,6 +16,29 @@ class Reservation {
     this.notes = notes;
   }
 
+  /** Falsy values in notes -> empty string */
+
+  get notes() {
+    return this._notes;
+  }
+
+  set notes(val) {
+    this._notes = (val) ? val : "";
+  }
+
+  /** less than one guest numbers not allowed */
+
+  get numGuests() {
+    return this._numGuests;
+  }
+
+  set numGuests(val) {
+    if (val < 1) {
+      throw new Error("Number of guests must be at least 1");
+    }
+    this._numGuests = val;
+  }
+
   /** formatter for startAt */
 
   getformattedStartAt() {
