@@ -33,7 +33,6 @@ class Customer {
   /** get list of customers matching search term */
 
   static async search(term) {
-
     const results = await db.query(
       `SELECT id, 
          first_name AS "firstName",  
@@ -48,6 +47,27 @@ class Customer {
        [`${term}%`]
     );
     return results.rows.map(c => new Customer(c));
+  }
+
+  /** get list of top ten customers by number of reservations */
+
+  static async topTen() {
+    const results = await db.query(
+      `SELECT customer_id, COUNT(customer_id) AS number
+        FROM reservations
+        GROUP BY customer_id
+        ORDER BY number DESC
+        LIMIT 10`
+    );
+
+    const topCustomers = await Promise.all(
+      results.rows.map(async function (r) {
+        const topCustomer = await Customer.get(r.customer_id);
+        return { customer: topCustomer, count: r.number}
+      })
+    ) 
+
+    return topCustomers;
   }
 
   /** get a customer by ID. */

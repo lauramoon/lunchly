@@ -19,7 +19,12 @@
     {% if reservations %}
     <ul>
       {% for reservation in reservations %}
-      <li><b>{{ reservation.getformattedStartAt() }}</b> for {{ reservation.numGuests }} </li>
+      <li>
+        <b>{{ reservation.getformattedStartAt() }}</b> for {{ reservation.numGuests }} <br>
+        {% if reservation.notes %}
+        Notes: {{reservation.notes}}
+        {% endif %}
+      </li>
       {% endfor %}
     </ul>
     {% else %}
